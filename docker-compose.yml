@@ -1,0 +1,26 @@
+version: '3'
+services:
+  nodered:
+    container_name: node-red
+    image: nodered/node-red
+    ports:
+      - 1880:1880
+    volumes:
+      - ./node-red:/data
+      
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+  mysql:
+    container_name: node-red-mysql
+    restart: always
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nodered 
+      MYSQL_USER: nodered
+      MYSQL_PASSWORD: nodered
